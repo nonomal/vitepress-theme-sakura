@@ -1,49 +1,48 @@
 {
-  "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build && node .vitepress/genFeed.js",
-    "serve": "vitepress serve",
-    "lib:build": "node ./build"
-  },
   "name": "vitepress-theme-sakura",
-  "version": "0.3.3",
+  "version": "0.5.1",
   "description": "vitepress-theme-sakura",
-  "repository": {
-    "url": "git+https://github.com/flaribbit/vitepress-theme-sakura.git"
-  },
+  "type": "module",
   "main": ".vitepress/theme/Layout.vue",
-  "keywords": [
-    "vitepress",
-    "theme",
-    "sakura"
-  ],
   "author": "flaribbit",
   "license": "ISC",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build && node .vitepress/genFeed.mjs",
+    "serve": "vitepress serve",
+    "lib:build": "node ./build",
+    "preview": "vitepress serve"
+  },
   "dependencies": {
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
-    "@types/react": "^18.0.9",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "sass": "^1.49.7",
-    "vite": "^2.9.9",
-    "vitepress": "^0.22.4",
-    "vue": "^3.2.29"
+    "@vitejs/plugin-vue": "^5.0.3",
+    "sass": "^1.69.7",
+    "vite": "^5.0.11",
+    "vitepress": "^1.0.0-rc.36",
+    "vue": "^3.4.13"
+  },
+  "repository": {
+    "url": "git+https://github.com/flaribbit/vitepress-theme-sakura.git"
   },
   "bugs": {
     "url": "https://github.com/flaribbit/vitepress-theme-sakura/issues"
   },
   "homepage": "https://github.com/flaribbit/vitepress-theme-sakura#readme",
+  "keywords": [
+    "vitepress",
+    "theme",
+    "sakura"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
   "files": [
     ".vitepress/fix-katex.js",
-    ".vitepress/genFeed.js",
-    ".vitepress/posts.data.js",
+    ".vitepress/genFeed.mjs",
+    ".vitepress/posts.data.mjs",
     ".vitepress/theme"
   ]
 }

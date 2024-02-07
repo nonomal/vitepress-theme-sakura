@@ -40,8 +40,9 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css' }],
   ],
   markdown: {
+    theme: 'github-light',
     lineNumbers: true,
-    config: md => { md.use(fixKatex) }
+    config: md => { md.use(fixKatex) },
   },
   themeConfig: {
     // ...
@@ -86,6 +87,40 @@ export interface ThemeConfig {
 }
 ```
 
+代码块主题配置，参见 [shiki 主题](https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes)
+```ts
+export type Theme =
+  | 'css-variables'
+  | 'dark-plus'
+  | 'dracula-soft'
+  | 'dracula'
+  | 'github-dark-dimmed'
+  | 'github-dark'
+  | 'github-light'
+  | 'hc_light'
+  | 'light-plus'
+  | 'material-darker'
+  | 'material-default'
+  | 'material-lighter'
+  | 'material-ocean'
+  | 'material-palenight'
+  | 'min-dark'
+  | 'min-light'
+  | 'monokai'
+  | 'nord'
+  | 'one-dark-pro'
+  | 'poimandres'
+  | 'rose-pine-dawn'
+  | 'rose-pine-moon'
+  | 'rose-pine'
+  | 'slack-dark'
+  | 'slack-ochin'
+  | 'solarized-dark'
+  | 'solarized-light'
+  | 'vitesse-dark'
+  | 'vitesse-light'
+```
+
 ## 文章配置
 ```md
 ---
@@ -119,9 +154,21 @@ tags: [标签1, 标签2]
 - [ ] 搜索
 - [ ] PWA
 
+## 其他说明
+如你所见，这个博客主题完成度不是很高。
+
+我写这个主题的初衷有两个，一是为了学习前端，二是看到隔壁 wordpress 主题的性能太烂了，所以就想着移植一下。
+
+如果你想安安静静写博客，需要体验友好、性能绝佳、扩展性出色的博客系统，推荐看一下 [Valaxy](https://valaxy.site/).
+
+如果你希望学习自制博客所需要的前端技术，但目前是小白，那或许可以参考本项目代码。本项目代码质量不高，但毕竟也是小白写的，所以应该比较容易看懂。如果不是小白，则可以参考 [云猫猫的 Valaxy 仓库](https://github.com/YunYouJun/valaxy)。
+
 ## 感谢
 - [wordpress-theme-sakura](https://github.com/mashirozx/sakura)
 - [hexo-theme-yun](https://github.com/YunYouJun/hexo-theme-yun)
 - [vuejs/blog](https://github.com/vuejs/blog)
 - [wordpress-theme-Sakurairo](https://github.com/mirai-mamori/Sakurairo)
 - [xiaowai-api](https://api.ixiaowai.cn/)
+
+## 不感谢
+- 某个关闭图床的网站

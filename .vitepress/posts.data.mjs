@@ -1,30 +1,34 @@
 // from https://github.com/vuejs/blog
-const fs = require('fs')
-const path = require('path')
-const matter = require('gray-matter')
-const { createMarkdownRenderer } = require('vitepress')
+import fs from 'node:fs'
+import path from 'node:path'
+import matter from 'gray-matter'
+import { fileURLToPath } from 'url';
+import { createMarkdownRenderer } from 'vitepress'
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const cwd = process.cwd()
-const md = createMarkdownRenderer(cwd)
 
-module.exports = {
+export default {
   watch: path.relative(__dirname, cwd + '/posts/*.md').replace(/\\/g, '/'),
-  load(asFeed = false) {
+  async load(asFeed = false) {
+    const md = await createMarkdownRenderer(cwd)
     const postDir = path.join(cwd, 'posts')
     checkTags()
     return fs
       .readdirSync(postDir)
       .filter((file) => file.endsWith('.md'))
-      .map((file) => getPost(file, postDir, asFeed))
-      .sort((a, b) => b.date.time - a.date.time)
+      .map((file) => getPost(md, file, postDir, asFeed))
+      .sort((a, b) => b.create - a.create)
   }
 }
 
 const cache = new Map()
 
-function getPost(file, postDir, asFeed = false) {
+function getPost(md, file, postDir, asFeed = false) {
   const fullePath = path.join(postDir, file)
-  const timestamp = fs.statSync(fullePath).mtimeMs
+  const timestamp = Math.floor(fs.statSync(fullePath).mtimeMs)
 
   const cached = cache.get(fullePath)
   if (cached && timestamp === cached.timestamp) {
@@ -37,7 +41,8 @@ function getPost(file, postDir, asFeed = false) {
   const post = {
     title: data.title,
     href: `posts/${file.replace(/\.md$/, '.html')}`,
-    date: formatDate(data.date || timestamp),
+    create: +new Date(data.date) || timestamp,
+    update: timestamp,
     tags: data.tags,
     cover: data.cover,
     excerpt: md.render(excerpt)
@@ -53,13 +58,6 @@ function getPost(file, postDir, asFeed = false) {
     post
   })
   return post
-}
-
-function formatDate(date) {
-  if (!(date instanceof Date)) {
-    date = new Date(date)
-  }
-  return date.toLocaleDateString('sv-SE')
 }
 
 function checkTags() {
